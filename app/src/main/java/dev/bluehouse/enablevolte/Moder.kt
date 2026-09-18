@@ -471,6 +471,9 @@ class SubscriptionModer(
     val showVoWifiIcon: Boolean
         get() = this.getBooleanValue(CarrierConfigManager.KEY_SHOW_WIFI_CALLING_ICON_IN_STATUS_BAR_BOOL)
 
+    val isInflateSignalStrengthEnabled: Boolean
+        get() = this.getBooleanValue(CarrierConfigManager.KEY_INFLATE_SIGNAL_STRENGTH_BOOL)
+
     val alwaysDataRATIcon: Boolean
         @RequiresApi(VERSION_CODES.R)
         get() = this.getBooleanValue(CarrierConfigManager.KEY_ALWAYS_SHOW_DATA_RAT_ICON_BOOL)
@@ -480,6 +483,9 @@ class SubscriptionModer(
 
     val isVtConfigEnabled: Boolean
         get() = this.getBooleanValue(CarrierConfigManager.KEY_CARRIER_VT_AVAILABLE_BOOL)
+
+    val isForceHomeNetworkEnabled: Boolean
+        get() = this.getBooleanValue(CarrierConfigManager.KEY_FORCE_HOME_NETWORK_BOOL)
 
     val ssOverUtEnabled: Boolean
         get() =

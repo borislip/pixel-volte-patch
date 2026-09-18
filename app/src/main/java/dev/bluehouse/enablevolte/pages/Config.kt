@@ -66,9 +66,11 @@ fun Config(
     var showVoWifiRoamingMode by rememberSaveable { mutableStateOf(false) }
     var wfcSpnFormatIndex by rememberSaveable { mutableIntStateOf(0) }
     var showVoWifiIcon by rememberSaveable { mutableStateOf(false) }
+    var inflateSignalStrengthEnabled by rememberSaveable { mutableStateOf(false) }
     var alwaysDataRATIcon by rememberSaveable { mutableStateOf(false) }
     var supportWfcWifiOnly by rememberSaveable { mutableStateOf(false) }
     var vtEnabled by rememberSaveable { mutableStateOf(false) }
+    var forceHomeNetworkEnabled by rememberSaveable { mutableStateOf(false) }
     var ssOverUtEnabled by rememberSaveable { mutableStateOf(false) }
     var ssOverCDMAEnabled by rememberSaveable { mutableStateOf(false) }
     var show4GForLteEnabled by rememberSaveable { mutableStateOf(false) }
@@ -103,9 +105,11 @@ fun Config(
         showVoWifiRoamingMode = VERSION.SDK_INT >= VERSION_CODES.R && moder.showVoWifiRoamingMode
         wfcSpnFormatIndex = moder.wfcSpnFormatIndex
         showVoWifiIcon = moder.showVoWifiIcon
+        inflateSignalStrengthEnabled = moder.isInflateSignalStrengthEnabled
         alwaysDataRATIcon = VERSION.SDK_INT >= VERSION_CODES.R && moder.alwaysDataRATIcon
         supportWfcWifiOnly = moder.supportWfcWifiOnly
         vtEnabled = moder.isVtConfigEnabled
+        forceHomeNetworkEnabled = moder.isForceHomeNetworkEnabled
         ssOverUtEnabled = moder.ssOverUtEnabled
         ssOverCDMAEnabled = moder.ssOverCDMAEnabled
         show4GForLteEnabled = VERSION.SDK_INT >= VERSION_CODES.R && moder.isShow4GForLteEnabled
@@ -302,6 +306,18 @@ fun Config(
                         }
                 }
             }
+            BooleanPropertyView(label = stringResource(R.string.force_home_network), toggled = forceHomeNetworkEnabled) {
+                forceHomeNetworkEnabled =
+                    if (forceHomeNetworkEnabled) {
+                        moder.updateCarrierConfig(CarrierConfigManager.KEY_FORCE_HOME_NETWORK_BOOL, false)
+                        moder.restartIMSRegistration()
+                        false
+                    } else {
+                        moder.updateCarrierConfig(CarrierConfigManager.KEY_FORCE_HOME_NETWORK_BOOL, true)
+                        moder.restartIMSRegistration()
+                        true
+                    }
+            }
             BooleanPropertyView(label = stringResource(R.string.allow_adding_apns), toggled = allowAddingAPNs) {
                 allowAddingAPNs =
                     if (allowAddingAPNs) {
@@ -407,6 +423,16 @@ fun Config(
                         false
                     } else {
                         moder.updateCarrierConfig(CarrierConfigManager.KEY_SHOW_WIFI_CALLING_ICON_IN_STATUS_BAR_BOOL, true)
+                        true
+                    }
+            }
+            BooleanPropertyView(label = stringResource(R.string.inflate_signal_strength), toggled = inflateSignalStrengthEnabled) {
+                inflateSignalStrengthEnabled =
+                    if (inflateSignalStrengthEnabled) {
+                        moder.updateCarrierConfig(CarrierConfigManager.KEY_INFLATE_SIGNAL_STRENGTH_BOOL, false)
+                        false
+                    } else {
+                        moder.updateCarrierConfig(CarrierConfigManager.KEY_INFLATE_SIGNAL_STRENGTH_BOOL, true)
                         true
                     }
             }
