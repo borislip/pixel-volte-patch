@@ -36,6 +36,7 @@
     <string name="show_wifi_only_for_vowifi">Show \"Wi-Fi only\" mode for VoWiFi</string>
     <string name="enable_video_calling_vt">Enable video calling (VT)</string>
     <string name="allow_adding_apns">Allow adding APNs</string>
+    <string name="force_home_network">Force home network</string>
     <string name="enable_ss_over_ut">Enable supplementary services (UT)</string>
     <string name="enable_ss_over_cdma">Enable supplementary services (CDMA)</string>
     <string name="sim_detected">SIM detected</string>
@@ -57,6 +58,7 @@
     <string name="cosmetic_toggles">Display &amp; UI</string>
     <string name="show_4g_for_lte_data_icon">Show 4G instead of LTE icon</string>
     <string name="show_vowifi_icon">Show VoWiFi icon</string>
+    <string name="inflate_signal_strength">Inflate signal strength</string>
     <string name="always_show_data_icon">Always show data RAT icon</string>
     <string name="hide_enhanced_data_icon">Hide LTE+ icon</string>
     <string name="show_lte_plus_for_any_ca">Show LTE+ for any carrier aggregation</string>

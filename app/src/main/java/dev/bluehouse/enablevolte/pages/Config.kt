@@ -86,6 +86,8 @@ fun Config(
     var voWiFiEnabledWhileRoaming by rememberSaveable { mutableStateOf(false) }
     var showIMSinSIMInfo by rememberSaveable { mutableStateOf(false) }
     var allowAddingAPNs by rememberSaveable { mutableStateOf(false) }
+    var inflateSignalStrengthEnabled by rememberSaveable { mutableStateOf(false) }
+    var forceHomeNetworkEnabled by rememberSaveable { mutableStateOf(false) }
     var showVoWifiMode by rememberSaveable { mutableStateOf(false) }
     var showVoWifiRoamingMode by rememberSaveable { mutableStateOf(false) }
     var wfcSpnFormatIndex by rememberSaveable { mutableIntStateOf(0) }
@@ -127,6 +129,8 @@ fun Config(
         voWiFiEnabledWhileRoaming = moder.isVoWifiWhileRoamingEnabled
         showIMSinSIMInfo = VERSION.SDK_INT >= VERSION_CODES.R && moder.showIMSinSIMInfo
         allowAddingAPNs = moder.allowAddingAPNs
+        inflateSignalStrengthEnabled = moder.isInflateSignalStrengthEnabled
+        forceHomeNetworkEnabled = moder.isForceHomeNetworkEnabled
         showVoWifiMode = VERSION.SDK_INT >= VERSION_CODES.R && moder.showVoWifiMode
         showVoWifiRoamingMode = VERSION.SDK_INT >= VERSION_CODES.R && moder.showVoWifiRoamingMode
         wfcSpnFormatIndex = moder.wfcSpnFormatIndex
@@ -409,6 +413,18 @@ fun Config(
                             }
                     }
                 }
+                BooleanPropertyView(label = stringResource(R.string.force_home_network), toggled = forceHomeNetworkEnabled) {
+                    forceHomeNetworkEnabled =
+                        if (forceHomeNetworkEnabled) {
+                            moder.updateCarrierConfig(CarrierConfigManager.KEY_FORCE_HOME_NETWORK_BOOL, false)
+                            moder.restartIMSRegistration()
+                            false
+                        } else {
+                            moder.updateCarrierConfig(CarrierConfigManager.KEY_FORCE_HOME_NETWORK_BOOL, true)
+                            moder.restartIMSRegistration()
+                            true
+                        }
+                }
                 BooleanPropertyView(label = stringResource(R.string.allow_adding_apns), toggled = allowAddingAPNs) {
                     allowAddingAPNs =
                         if (allowAddingAPNs) {
@@ -514,6 +530,16 @@ fun Config(
                             false
                         } else {
                             moder.updateCarrierConfig(CarrierConfigManager.KEY_SHOW_WIFI_CALLING_ICON_IN_STATUS_BAR_BOOL, true)
+                            true
+                        }
+                }
+                BooleanPropertyView(label = stringResource(R.string.inflate_signal_strength), toggled = inflateSignalStrengthEnabled) {
+                    inflateSignalStrengthEnabled =
+                        if (inflateSignalStrengthEnabled) {
+                            moder.updateCarrierConfig(CarrierConfigManager.KEY_INFLATE_SIGNAL_STRENGTH_BOOL, false)
+                            false
+                        } else {
+                            moder.updateCarrierConfig(CarrierConfigManager.KEY_INFLATE_SIGNAL_STRENGTH_BOOL, true)
                             true
                         }
                 }
