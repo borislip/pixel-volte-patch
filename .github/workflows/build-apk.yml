@@ -38,7 +38,7 @@ jobs:
           distribution: "zulu"
           java-version: "17"
       - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
+        uses: android-actions/setup-android@dd83ef4e10ea64da1c6e9484424382da8db64e36
       - name: Accept SDK licenses
         run: yes | sdkmanager --licenses || true
       - name: Install required platform
