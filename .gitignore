@@ -4,6 +4,7 @@
 .externalNativeBuild
 .gradle
 .idea
+.claude/**
 /build
 /captures
 /local.properties
