@@ -92,3 +92,7 @@ dependencies {
     implementation "com.github.kittinunf.fuel:fuel-json:2.3.1"
     implementation 'net.swiftzer.semver:semver:2.1.0'
 }
+
+if (project.hasProperty("appVersionName")) {
+    android.defaultConfig.versionName = project.property("appVersionName")
+}
